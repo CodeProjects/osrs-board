@@ -1,0 +1,46 @@
+.board-page {
+  width: 100%;
+  max-width: 900px;
+}
+
+.board-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.board-grid {
+  display: grid;
+  gap: 4px;
+  flex: 1;
+  background: var(--color-dark-brown);
+  border: 3px solid var(--color-dark-brown);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.roster {
+  background: var(--color-panel);
+  border: 3px solid var(--color-dark-brown);
+  border-radius: 4px;
+  padding: 16px;
+  min-width: 160px;
+  box-sizing: border-box;
+}
+
+.roster h2 {
+  font-size: 18px;
+}
+
+.roster ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.roster li {
+  color: var(--color-yellow);
+}
