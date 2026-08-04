@@ -24,21 +24,26 @@ describe("generateSpecialTiles", () => {
     }
     expect(config10x10.light).toBeLessThan(config10x10.moderate);
     expect(config10x10.moderate).toBeLessThan(config10x10.heavy);
-    // 100 tiles: light ~8, moderate ~15, heavy ~25 (rounded from the configured percentages)
-    expect(config10x10.light).toBe(8);
-    expect(config10x10.moderate).toBe(15);
-    expect(config10x10.heavy).toBe(25);
+    // 100 tiles, each count rounded down to the nearest even number so ladders equal chutes:
+    // light ~8, moderate ~14, heavy ~24
+    expect(config10x10.light).toBe(10);
+    expect(config10x10.moderate).toBe(18);
+    expect(config10x10.heavy).toBe(24);
   });
 
-  it("splits special tiles roughly evenly between ladders and chutes", () => {
-    const config = makeConfig(10, 10, "heavy");
-    const tiles = generateSpecialTiles(config);
-    const ladders = [...tiles.values()].filter(
-      (t) => t.type === "ladder",
-    ).length;
-    const chutes = [...tiles.values()].filter((t) => t.type === "chute").length;
-    expect(ladders + chutes).toBe(tiles.size);
-    expect(Math.abs(ladders - chutes)).toBeLessThanOrEqual(1);
+  it("always places an equal number of ladders and chutes", () => {
+    for (const difficulty of ["light", "moderate", "heavy"] as Difficulty[]) {
+      const config = makeConfig(10, 10, difficulty);
+      const tiles = generateSpecialTiles(config);
+      const ladders = [...tiles.values()].filter(
+        (t) => t.type === "ladder",
+      ).length;
+      const chutes = [...tiles.values()].filter(
+        (t) => t.type === "chute",
+      ).length;
+      expect(ladders + chutes).toBe(tiles.size);
+      expect(ladders).toBe(chutes);
+    }
   });
 
   it("never places a chute/ladder endpoint on the start or goal tile", () => {

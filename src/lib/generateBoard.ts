@@ -8,8 +8,8 @@ export const BOARD_LIMITS = {
 } as const;
 
 const DIFFICULTY_PERCENT: Record<Difficulty, number> = {
-  light: 0.08,
-  moderate: 0.15,
+  light: 0.1,
+  moderate: 0.175,
   heavy: 0.25,
 };
 
@@ -39,8 +39,8 @@ export function generateSpecialTiles(
   const specialCount = Math.round(
     totalTiles * DIFFICULTY_PERCENT[config.difficulty],
   );
-  const ladderCount = Math.ceil(specialCount / 2);
-  const chuteCount = specialCount - ladderCount;
+  const ladderCount = Math.floor(specialCount / 2);
+  const chuteCount = ladderCount;
 
   // Start (1) and goal (totalTiles) are never a chute/ladder endpoint.
   const used = new Set<number>([1, totalTiles]);
