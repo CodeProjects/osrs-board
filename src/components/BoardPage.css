@@ -9,14 +9,17 @@
   align-items: flex-start;
 }
 
-.board-grid {
-  display: grid;
-  gap: 4px;
+.board-grid-wrapper {
+  position: relative;
   flex: 1;
   background: var(--color-dark-brown);
   border: 3px solid var(--color-dark-brown);
   border-radius: 4px;
   padding: 4px;
+}
+
+.board-grid {
+  display: grid;
 }
 
 .roster {

@@ -1,0 +1,28 @@
+.board-lines {
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+}
+
+.board-line {
+  stroke-width: 0.05;
+  stroke-linecap: round;
+}
+
+.board-line--ladder {
+  stroke: var(--color-green);
+  fill: var(--color-green);
+}
+
+.board-line--chute {
+  stroke: var(--color-red);
+  fill: var(--color-red);
+}
+
+.arrowhead--ladder {
+  fill: var(--color-green);
+}
+
+.arrowhead--chute {
+  fill: var(--color-red);
+}

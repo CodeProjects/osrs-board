@@ -17,11 +17,6 @@ function Tile({ number, special, row, col }: TileProps) {
       style={{ gridRow: row + 1, gridColumn: col + 1 }}
     >
       <span className="tile-number">{number}</span>
-      {special && (
-        <span className="tile-special">
-          {special.type === 'ladder' ? '▲' : '▼'} {special.target}
-        </span>
-      )}
     </div>
   )
 }
