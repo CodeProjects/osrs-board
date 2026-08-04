@@ -1,0 +1,53 @@
+:root {
+  --color-yellow: #ffcf3f;
+  --color-gold: #e6a519;
+  --color-brown: #694d23;
+  --color-dark-brown: #382d1a;
+  --color-black: #0f0f0f;
+
+  --color-background: #2e2c29;
+  --color-border: #474745;
+  --color-panel: #46433a;
+
+  --color-green: #00ff00;
+  --color-red: #ff0000;
+  --color-blue: #0088ff;
+  --color-chat: #00ffff;
+
+  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-body: system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  color-scheme: dark;
+  color: var(--color-yellow);
+  background: var(--color-background);
+  font: 16px/145% var(--font-body);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--color-gold);
+  margin: 0 0 8px;
+}
+
+button {
+  font-family: var(--font-body);
+}
