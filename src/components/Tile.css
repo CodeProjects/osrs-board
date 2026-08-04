@@ -24,3 +24,13 @@
   border-color: var(--color-red);
   border-width: 2px;
 }
+
+.token {
+  position: absolute;
+  width: 55%;
+  height: 55%;
+  border-radius: 50%;
+  background: var(--color-gold);
+  border: 2px solid var(--color-dark-brown);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}

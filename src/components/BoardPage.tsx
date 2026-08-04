@@ -1,15 +1,18 @@
 import type { GameState } from '../types'
 import { tileToGridPosition } from '../lib/generateBoard'
+import { isGameWon } from '../lib/gameplay'
 import Tile from './Tile'
 import BoardLines from './BoardLines'
+import DiceRoller from './DiceRoller'
 import './BoardPage.css'
 
 interface BoardPageProps {
   gameState: GameState
+  onRoll: () => void
 }
 
-function BoardPage({ gameState }: BoardPageProps) {
-  const { config, specialTiles } = gameState
+function BoardPage({ gameState, onRoll }: BoardPageProps) {
+  const { config, specialTiles, tokenPosition, lastRoll } = gameState
   const { width, height, players } = config
   const total = width * height
   const tileNumbers = Array.from({ length: total }, (_, i) => i + 1)
@@ -33,6 +36,7 @@ function BoardPage({ gameState }: BoardPageProps) {
                   key={number}
                   number={number}
                   special={specialTiles.get(number)}
+                  hasToken={number === tokenPosition}
                   row={row}
                   col={col}
                 />
@@ -50,6 +54,7 @@ function BoardPage({ gameState }: BoardPageProps) {
           </ul>
         </aside>
       </div>
+      <DiceRoller lastRoll={lastRoll} isWon={isGameWon(gameState)} onRoll={onRoll} />
     </div>
   )
 }

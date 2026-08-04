@@ -1,0 +1,31 @@
+.dice-roller {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.last-roll {
+  margin: 0 0 8px;
+  color: var(--color-yellow);
+}
+
+.win-message {
+  color: var(--color-gold);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.roll-button {
+  background: var(--color-gold);
+  color: var(--color-black);
+  border: 2px solid var(--color-dark-brown);
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.roll-button:hover {
+  background: var(--color-yellow);
+}

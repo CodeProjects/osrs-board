@@ -4,11 +4,12 @@ import './Tile.css'
 interface TileProps {
   number: number
   special?: SpecialTile
+  hasToken?: boolean
   row: number
   col: number
 }
 
-function Tile({ number, special, row, col }: TileProps) {
+function Tile({ number, special, hasToken, row, col }: TileProps) {
   const specialClass = special ? `tile--${special.type}` : ''
 
   return (
@@ -17,6 +18,7 @@ function Tile({ number, special, row, col }: TileProps) {
       style={{ gridRow: row + 1, gridColumn: col + 1 }}
     >
       <span className="tile-number">{number}</span>
+      {hasToken && <span className="token" aria-label="Team token" />}
     </div>
   )
 }
