@@ -4,3 +4,9 @@
   padding: 32px 20px;
   text-align: center;
 }
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 20px 12px;
+  }
+}

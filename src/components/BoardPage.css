@@ -1,17 +1,27 @@
 .board-page {
   width: 100%;
   max-width: 900px;
+  margin: 0 auto;
 }
 
-.board-layout {
+.board-row {
   display: flex;
   gap: 24px;
   align-items: flex-start;
 }
 
+.board-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
 .board-grid-wrapper {
   position: relative;
-  flex: 1;
+  width: 100%;
   background: var(--color-dark-brown);
   border: 3px solid var(--color-dark-brown);
   border-radius: 4px;
@@ -20,6 +30,20 @@
 
 .board-grid {
   display: grid;
+}
+
+.back-button {
+  background: none;
+  border: 2px solid var(--color-border);
+  color: var(--color-yellow);
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
+.back-button:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
 }
 
 .roster {
@@ -46,4 +70,17 @@
 
 .roster li {
   color: var(--color-yellow);
+}
+
+@media (max-width: 640px) {
+  .board-row {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .roster {
+    width: 100%;
+    min-width: 0;
+  }
 }

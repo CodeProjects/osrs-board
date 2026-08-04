@@ -26,6 +26,7 @@
 
 .field-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
@@ -44,11 +45,6 @@ input[type='number'] {
   font-family: var(--font-body);
 }
 
-input:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 1px;
-}
-
 fieldset {
   border: 2px solid var(--color-border);
   border-radius: 3px;
@@ -64,6 +60,7 @@ legend {
 
 .difficulty-options {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 

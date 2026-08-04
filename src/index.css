@@ -51,3 +51,13 @@ h3 {
 button {
   font-family: var(--font-body);
 }
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}

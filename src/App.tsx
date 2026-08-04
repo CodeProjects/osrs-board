@@ -25,12 +25,11 @@ function App() {
   return (
     <div className="app-shell">
       {gameState ?
-        <div>
-          <BoardPage gameState={gameState} onRoll={handleRoll} />
-          <button type="button" onClick={() => setGameState(null)}>
-            Back to setup
-          </button>
-        </div>
+        <BoardPage
+          gameState={gameState}
+          onRoll={handleRoll}
+          onBack={() => setGameState(null)}
+        />
       : <SetupPage initialConfig={lastConfig} onSubmit={handleSetupSubmit} />}
     </div>
   );

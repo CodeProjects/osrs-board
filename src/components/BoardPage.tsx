@@ -9,9 +9,10 @@ import './BoardPage.css'
 interface BoardPageProps {
   gameState: GameState
   onRoll: () => void
+  onBack: () => void
 }
 
-function BoardPage({ gameState, onRoll }: BoardPageProps) {
+function BoardPage({ gameState, onRoll, onBack }: BoardPageProps) {
   const { config, specialTiles, tokenPosition, lastRoll } = gameState
   const { width, height, players } = config
   const total = width * height
@@ -19,31 +20,37 @@ function BoardPage({ gameState, onRoll }: BoardPageProps) {
 
   return (
     <div className="board-page">
-      <h1>{config.name}</h1>
-      <div className="board-layout">
-        <div className="board-grid-wrapper">
-          <div
-            className="board-grid"
-            style={{
-              gridTemplateColumns: `repeat(${width}, 1fr)`,
-              gridTemplateRows: `repeat(${height}, 1fr)`,
-            }}
-          >
-            {tileNumbers.map((number) => {
-              const { row, col } = tileToGridPosition(number, width, height)
-              return (
-                <Tile
-                  key={number}
-                  number={number}
-                  special={specialTiles.get(number)}
-                  hasToken={number === tokenPosition}
-                  row={row}
-                  col={col}
-                />
-              )
-            })}
+      <div className="board-row">
+        <div className="board-column">
+          <h1>{config.name}</h1>
+          <div className="board-grid-wrapper">
+            <div
+              className="board-grid"
+              style={{
+                gridTemplateColumns: `repeat(${width}, 1fr)`,
+                gridTemplateRows: `repeat(${height}, 1fr)`,
+              }}
+            >
+              {tileNumbers.map((number) => {
+                const { row, col } = tileToGridPosition(number, width, height)
+                return (
+                  <Tile
+                    key={number}
+                    number={number}
+                    special={specialTiles.get(number)}
+                    hasToken={number === tokenPosition}
+                    row={row}
+                    col={col}
+                  />
+                )
+              })}
+            </div>
+            <BoardLines specialTiles={specialTiles} width={width} height={height} />
           </div>
-          <BoardLines specialTiles={specialTiles} width={width} height={height} />
+          <DiceRoller lastRoll={lastRoll} isWon={isGameWon(gameState)} onRoll={onRoll} />
+          <button type="button" className="back-button" onClick={onBack}>
+            Back to setup
+          </button>
         </div>
         <aside className="roster">
           <h2>Players</h2>
@@ -54,7 +61,6 @@ function BoardPage({ gameState, onRoll }: BoardPageProps) {
           </ul>
         </aside>
       </div>
-      <DiceRoller lastRoll={lastRoll} isWon={isGameWon(gameState)} onRoll={onRoll} />
     </div>
   )
 }
