@@ -4,6 +4,7 @@ import { BOARD_LIMITS } from "../lib/generateBoard";
 import "./SetupPage.css";
 
 interface SetupPageProps {
+  initialConfig?: BoardConfig | null;
   onSubmit: (config: BoardConfig) => void;
 }
 
@@ -13,12 +14,16 @@ const DIFFICULTY_OPTIONS: { value: Difficulty; label: string }[] = [
   { value: "heavy", label: "Heavy" },
 ];
 
-function SetupPage({ onSubmit }: SetupPageProps) {
-  const [name, setName] = useState("");
-  const [width, setWidth] = useState(6);
-  const [height, setHeight] = useState(6);
-  const [difficulty, setDifficulty] = useState<Difficulty>("moderate");
-  const [players, setPlayers] = useState<string[]>(["", ""]);
+function SetupPage({ initialConfig, onSubmit }: SetupPageProps) {
+  const [name, setName] = useState(initialConfig?.name ?? "");
+  const [width, setWidth] = useState(initialConfig?.width ?? 6);
+  const [height, setHeight] = useState(initialConfig?.height ?? 6);
+  const [difficulty, setDifficulty] = useState<Difficulty>(
+    initialConfig?.difficulty ?? "moderate",
+  );
+  const [players, setPlayers] = useState<string[]>(
+    initialConfig?.players ?? ["", ""],
+  );
   const [error, setError] = useState<string | null>(null);
 
   const canAddPlayer = players.length < BOARD_LIMITS.maxPlayers;

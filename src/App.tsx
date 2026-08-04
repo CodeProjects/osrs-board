@@ -7,8 +7,10 @@ import './App.css'
 
 function App() {
   const [gameState, setGameState] = useState<GameState | null>(null)
+  const [lastConfig, setLastConfig] = useState<BoardConfig | null>(null)
 
   const handleSetupSubmit = (config: BoardConfig) => {
+    setLastConfig(config)
     setGameState(createInitialGameState(config))
   }
 
@@ -22,7 +24,7 @@ function App() {
           </button>
         </div>
       ) : (
-        <SetupPage onSubmit={handleSetupSubmit} />
+        <SetupPage initialConfig={lastConfig} onSubmit={handleSetupSubmit} />
       )}
     </div>
   )
