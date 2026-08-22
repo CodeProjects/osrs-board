@@ -30,7 +30,7 @@ function BoardPage({ gameState, onRoll, boardTiles }: BoardPageProps) {
                 hasToken={tokenPosition === goalTile}
               />
               <Tile
-                tile={{ tileNumber: goalTile }}
+                tile={{ tileNumber: startTile }}
                 hasToken={tokenPosition === startTile}
               />
             </div>
