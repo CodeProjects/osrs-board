@@ -1,4 +1,5 @@
 import type { SpecialTile } from '../types'
+import helmetIcon from '../assets/helmet icon.png'
 import './Tile.css'
 
 interface TileProps {
@@ -11,14 +12,15 @@ interface TileProps {
 
 function Tile({ number, special, hasToken, row, col }: TileProps) {
   const specialClass = special ? `tile--${special.type}` : ''
+  const shadeClass = number % 2 === 0 ? 'tile--light' : 'tile--dark'
 
   return (
     <div
-      className={`tile ${specialClass}`}
+      className={`tile ${shadeClass} ${specialClass}`}
       style={{ gridRow: row + 1, gridColumn: col + 1 }}
     >
       <span className="tile-number">{number}</span>
-      {hasToken && <span className="token" aria-label="Team token" />}
+      {hasToken && <img className="token" src={helmetIcon} alt="Team token" />}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { useState, type SubmitEvent } from "react";
 import type { BoardConfig, Difficulty } from "../types";
 import { BOARD_LIMITS } from "../lib/generateBoard";
+import FontPreview from "./FontPreview";
 import "./SetupPage.css";
 
 interface SetupPageProps {
@@ -80,8 +81,9 @@ function SetupPage({ initialConfig, onSubmit }: SetupPageProps) {
   };
 
   return (
-    <form className="setup-page" onSubmit={handleSubmit}>
-      <h1>Set Up</h1>
+    <>
+      <form className="setup-page" onSubmit={handleSubmit}>
+        <h1>Set Up</h1>
 
       <label className="field">
         <span>Board name</span>
@@ -171,10 +173,12 @@ function SetupPage({ initialConfig, onSubmit }: SetupPageProps) {
         </p>
       )}
 
-      <button type="submit" className="start-button">
-        Create Board
-      </button>
-    </form>
+        <button type="submit" className="start-button">
+          Create Board
+        </button>
+      </form>
+      <FontPreview />
+    </>
   );
 }
 

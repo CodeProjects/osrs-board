@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'RuneScape';
+  src: url('./assets/runescape.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RuneScape';
+  src: url('./assets/runescape_bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RuneScape Small';
+  src: url('./assets/runescape_small.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --color-yellow: #ffcf3f;
   --color-gold: #e6a519;
@@ -14,8 +38,9 @@
   --color-blue: #0088ff;
   --color-chat: #00ffff;
 
-  --font-heading: 'VT323', monospace;
-  --font-body: 'VT323', monospace;
+  --font-heading: 'RuneScape', monospace;
+  --font-body: 'RuneScape', monospace;
+  --font-small: 'RuneScape Small', monospace;
 
   /* Chiseled-stone bevels for panels and buttons */
   --bevel-panel: inset 2px 2px 0 rgba(255, 255, 255, 0.08), inset -2px -2px 0 rgba(0, 0, 0, 0.5);
