@@ -9,6 +9,7 @@
   color: #000000;
   font-family: var(--font-small);
   font-size: 18px;
+  text-shadow: none;
   position: relative;
 }
 
@@ -20,8 +21,16 @@
   background: #e5d3a1;
 }
 
-.tile-number {
+.tile-label {
+  position: relative;
+  z-index: 2;
   font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  text-align: center;
+  overflow: hidden;
+  word-break: break-word;
+  padding: 2px;
 }
 
 .tile--ladder {
@@ -48,5 +57,9 @@
 @media (max-width: 640px) {
   .tile {
     font-size: 13px;
+  }
+
+  .tile-label {
+    font-size: 8px;
   }
 }

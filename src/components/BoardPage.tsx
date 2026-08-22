@@ -9,9 +9,10 @@ import './BoardPage.css'
 interface BoardPageProps {
   gameState: GameState
   onRoll: () => void
+  taskByTileNumber: Map<number, string>
 }
 
-function BoardPage({ gameState, onRoll }: BoardPageProps) {
+function BoardPage({ gameState, onRoll, taskByTileNumber }: BoardPageProps) {
   const { width, height, specialTiles, tokenPosition, lastRoll } = gameState
   const total = width * height
   const startTile = 0
@@ -42,6 +43,7 @@ function BoardPage({ gameState, onRoll }: BoardPageProps) {
                     <Tile
                       key={number}
                       number={number}
+                      label={taskByTileNumber.get(number)}
                       special={specialTiles.get(number)}
                       hasToken={number === tokenPosition}
                       row={row}

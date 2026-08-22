@@ -306,7 +306,7 @@
   {
     "tile_number": 39,
     "task": "Pegasian/Primordial crystal or Jar",
-    "clean_task": "Pegasian/Primordial crystal or Jar",
+    "clean_task": "Pegasian/Primordial crystal",
     "description": "Eternal crystal / Smoldering Stone do NOT count",
     "type": "normal",
     "target": null

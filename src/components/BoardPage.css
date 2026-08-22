@@ -24,7 +24,7 @@
 }
 
 .board-frame {
-  --tile-size: 64px;
+  --tile-size: 96px;
   display: flex;
   gap: 4px;
 }

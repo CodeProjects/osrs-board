@@ -35,3 +35,7 @@ export const specialTiles: Map<number, SpecialTile> = new Map(
     .filter(isSpecialTile)
     .map((tile) => [tile.tileNumber, { type: tile.type, target: tile.target }]),
 )
+
+export const taskByTileNumber: Map<number, string> = new Map(
+  boardTiles.map((tile) => [tile.tileNumber, tile.cleanTask]),
+)

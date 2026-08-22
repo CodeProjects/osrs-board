@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { GameState } from "./types";
-import { boardWidth, boardHeight, specialTiles } from "./lib/board";
+import { boardWidth, boardHeight, specialTiles, taskByTileNumber } from "./lib/board";
 import { advanceToken } from "./lib/gameplay";
 import BoardPage from "./components/BoardPage";
 import "./App.css";
@@ -28,7 +28,11 @@ function App() {
 
   return (
     <div className="app-shell">
-      <BoardPage gameState={gameState} onRoll={handleRoll} />
+      <BoardPage
+        gameState={gameState}
+        onRoll={handleRoll}
+        taskByTileNumber={taskByTileNumber}
+      />
     </div>
   );
 }
