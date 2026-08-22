@@ -2,6 +2,7 @@
   background: var(--color-panel);
   border: 3px solid var(--color-dark-brown);
   border-radius: 4px;
+  box-shadow: var(--bevel-panel);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -15,6 +16,7 @@
 
 .setup-page h1 {
   text-align: center;
+  font-size: 36px;
 }
 
 .field {
@@ -38,15 +40,17 @@ input[type='text'],
 input[type='number'] {
   background: var(--color-black);
   border: 2px solid var(--color-border);
+  box-shadow: var(--bevel-sunken);
   color: var(--color-yellow);
   border-radius: 3px;
   padding: 8px 10px;
-  font-size: 15px;
+  font-size: 20px;
   font-family: var(--font-body);
 }
 
 fieldset {
   border: 2px solid var(--color-border);
+  box-shadow: var(--bevel-sunken);
   border-radius: 3px;
   padding: 12px;
   margin: 0;
@@ -56,6 +60,7 @@ legend {
   padding: 0 6px;
   color: var(--color-gold);
   font-weight: 600;
+  font-size: 20px;
 }
 
 .difficulty-options {
@@ -70,6 +75,7 @@ legend {
   gap: 6px;
   cursor: pointer;
   color: var(--color-yellow);
+  font-size: 20px;
 }
 
 .difficulty-options input {
@@ -90,9 +96,10 @@ legend {
   background: var(--color-dark-brown);
   color: var(--color-yellow);
   border: 2px solid var(--color-border);
+  box-shadow: var(--bevel-raised);
   border-radius: 3px;
-  width: 36px;
-  cursor: pointer;
+  width: 40px;
+  font-size: 20px;
 }
 
 .player-row button:disabled {
@@ -106,8 +113,8 @@ legend {
   color: var(--color-yellow);
   border-radius: 3px;
   padding: 8px;
-  cursor: pointer;
   width: 100%;
+  font-size: 20px;
   font-family: var(--font-body);
 }
 
@@ -120,17 +127,18 @@ legend {
   color: var(--color-red);
   margin: 0;
   font-weight: 600;
+  font-size: 20px;
 }
 
 .start-button {
   background: var(--color-gold);
   color: var(--color-black);
   border: 2px solid var(--color-dark-brown);
+  box-shadow: var(--bevel-raised);
   border-radius: 4px;
   padding: 12px;
-  font-size: 17px;
+  font-size: 22px;
   font-weight: 700;
-  cursor: pointer;
 }
 
 .start-button:hover {

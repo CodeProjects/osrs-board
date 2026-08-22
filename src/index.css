@@ -14,13 +14,19 @@
   --color-blue: #0088ff;
   --color-chat: #00ffff;
 
-  --font-heading: Georgia, 'Times New Roman', serif;
-  --font-body: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'VT323', monospace;
+  --font-body: 'VT323', monospace;
+
+  /* Chiseled-stone bevels for panels and buttons */
+  --bevel-panel: inset 2px 2px 0 rgba(255, 255, 255, 0.08), inset -2px -2px 0 rgba(0, 0, 0, 0.5);
+  --bevel-raised: inset 1px 1px 0 rgba(255, 255, 255, 0.25), inset -1px -1px 0 rgba(0, 0, 0, 0.45);
+  --bevel-sunken: inset -1px -1px 0 rgba(255, 255, 255, 0.08), inset 1px 1px 2px rgba(0, 0, 0, 0.7);
 
   color-scheme: dark;
   color: var(--color-yellow);
   background: var(--color-background);
-  font: 16px/145% var(--font-body);
+  font: 20px/135% var(--font-body);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6);
 }
 
 *,
@@ -46,6 +52,7 @@ h3 {
   font-family: var(--font-heading);
   color: var(--color-gold);
   margin: 0 0 8px;
+  letter-spacing: 0.5px;
 }
 
 button {
@@ -54,6 +61,11 @@ button {
 
 button:not(:disabled) {
   cursor: pointer;
+}
+
+button:active:not(:disabled) {
+  box-shadow: var(--bevel-sunken);
+  transform: translateY(1px);
 }
 
 input:focus-visible,

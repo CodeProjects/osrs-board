@@ -6,11 +6,12 @@
 .last-roll {
   margin: 0 0 8px;
   color: var(--color-yellow);
+  font-size: 20px;
 }
 
 .win-message {
   color: var(--color-gold);
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 700;
   margin: 0;
 }
@@ -19,11 +20,11 @@
   background: var(--color-gold);
   color: var(--color-black);
   border: 2px solid var(--color-dark-brown);
+  box-shadow: var(--bevel-raised);
   border-radius: 4px;
   padding: 12px 24px;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 700;
-  cursor: pointer;
 }
 
 .roll-button:hover {
