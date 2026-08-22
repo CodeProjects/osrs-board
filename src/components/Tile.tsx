@@ -6,19 +6,20 @@ interface TileProps {
   number: number
   special?: SpecialTile
   hasToken?: boolean
-  row: number
-  col: number
+  row?: number
+  col?: number
 }
 
 function Tile({ number, special, hasToken, row, col }: TileProps) {
   const specialClass = special ? `tile--${special.type}` : ''
   const shadeClass = number % 2 === 0 ? 'tile--light' : 'tile--dark'
+  const gridStyle =
+    row !== undefined && col !== undefined
+      ? { gridRow: row + 1, gridColumn: col + 1 }
+      : undefined
 
   return (
-    <div
-      className={`tile ${shadeClass} ${specialClass}`}
-      style={{ gridRow: row + 1, gridColumn: col + 1 }}
-    >
+    <div className={`tile ${shadeClass} ${specialClass}`} style={gridStyle}>
       <span className="tile-number">{number}</span>
       {hasToken && <img className="token" src={helmetIcon} alt="Team token" />}
     </div>

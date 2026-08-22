@@ -10,7 +10,7 @@ function createInitialGameState(): GameState {
     width: boardWidth,
     height: boardHeight,
     specialTiles,
-    tokenPosition: 1,
+    tokenPosition: 0,
     lastRoll: null,
   };
 }

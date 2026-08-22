@@ -23,9 +23,29 @@
   font-size: 40px;
 }
 
+.board-frame {
+  --tile-size: 64px;
+  display: flex;
+  gap: 4px;
+}
+
+.board-corners {
+  width: var(--tile-size);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 7px 0;
+}
+
+.board-corners .tile {
+  border: 3px solid var(--color-dark-brown);
+  border-radius: 4px;
+  box-shadow: var(--bevel-panel);
+}
+
 .board-grid-wrapper {
   position: relative;
-  width: 100%;
   background: var(--color-dark-brown);
   border: 3px solid var(--color-dark-brown);
   box-shadow: var(--bevel-panel);
@@ -85,6 +105,10 @@
     flex-direction: column;
     align-items: stretch;
     width: 100%;
+  }
+
+  .board-frame {
+    --tile-size: 32px;
   }
 
   .roster {
