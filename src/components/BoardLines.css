@@ -1,6 +1,7 @@
 .board-lines {
   position: absolute;
   inset: 4px;
+  z-index: 1;
   pointer-events: none;
 }
 
