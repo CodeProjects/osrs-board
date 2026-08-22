@@ -1,24 +1,23 @@
-import type { GameState } from '../types'
-import { tileToGridPosition } from '../lib/generateBoard'
-import { isGameWon } from '../lib/gameplay'
-import Tile from './Tile'
-import BoardLines from './BoardLines'
-import DiceRoller from './DiceRoller'
-import './BoardPage.css'
+import type { GameState } from "../types";
+import type { BoardTile } from "../lib/board";
+import { tileToGridPosition } from "../lib/generateBoard";
+import { isGameWon } from "../lib/gameplay";
+import Tile from "./Tile";
+import BoardLines from "./BoardLines";
+import DiceRoller from "./DiceRoller";
+import "./BoardPage.css";
 
 interface BoardPageProps {
-  gameState: GameState
-  onRoll: () => void
-  taskByTileNumber: Map<number, string>
+  gameState: GameState;
+  onRoll: () => void;
+  boardTiles: BoardTile[];
 }
 
-function BoardPage({ gameState, onRoll, taskByTileNumber }: BoardPageProps) {
-  const { width, height, specialTiles, tokenPosition, lastRoll } = gameState
-  const total = width * height
-  const startTile = 0
-  const goalTile = total + 1
-  const tileNumbers = Array.from({ length: total }, (_, i) => i + 1)
-
+function BoardPage({ gameState, onRoll, boardTiles }: BoardPageProps) {
+  const { width, height, specialTiles, tokenPosition, lastRoll } = gameState;
+  const total = width * height;
+  const startTile = 0;
+  const goalTile = total + 1;
   return (
     <div className="board-page">
       <div className="board-row">
@@ -26,8 +25,14 @@ function BoardPage({ gameState, onRoll, taskByTileNumber }: BoardPageProps) {
           <h1>OSRS Chutes and Ladders</h1>
           <div className="board-frame">
             <div className="board-corners">
-              <Tile number={goalTile} hasToken={tokenPosition === goalTile} />
-              <Tile number={startTile} hasToken={tokenPosition === startTile} />
+              <Tile
+                tile={{ tileNumber: goalTile }}
+                hasToken={tokenPosition === goalTile}
+              />
+              <Tile
+                tile={{ tileNumber: goalTile }}
+                hasToken={tokenPosition === startTile}
+              />
             </div>
             <div className="board-grid-wrapper">
               <div
@@ -37,29 +42,39 @@ function BoardPage({ gameState, onRoll, taskByTileNumber }: BoardPageProps) {
                   gridTemplateRows: `repeat(${height}, var(--tile-size))`,
                 }}
               >
-                {tileNumbers.map((number) => {
-                  const { row, col } = tileToGridPosition(number, width, height)
+                {boardTiles.map((tile) => {
+                  const { row, col } = tileToGridPosition(
+                    tile.tileNumber,
+                    width,
+                    height,
+                  );
                   return (
                     <Tile
-                      key={number}
-                      number={number}
-                      label={taskByTileNumber.get(number)}
-                      special={specialTiles.get(number)}
-                      hasToken={number === tokenPosition}
+                      key={tile.tileNumber}
+                      tile={tile}
+                      hasToken={tile.tileNumber === tokenPosition}
                       row={row}
                       col={col}
                     />
-                  )
+                  );
                 })}
               </div>
-              <BoardLines specialTiles={specialTiles} width={width} height={height} />
+              <BoardLines
+                specialTiles={specialTiles}
+                width={width}
+                height={height}
+              />
             </div>
           </div>
-          <DiceRoller lastRoll={lastRoll} isWon={isGameWon(gameState)} onRoll={onRoll} />
+          <DiceRoller
+            lastRoll={lastRoll}
+            isWon={isGameWon(gameState)}
+            onRoll={onRoll}
+          />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default BoardPage
+export default BoardPage;

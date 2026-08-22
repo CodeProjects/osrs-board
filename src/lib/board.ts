@@ -1,15 +1,15 @@
-import rawTiles from '../assets/osrs_chutes_and_ladders.json'
-import type { SpecialTile, SpecialTileType } from '../types'
+import rawTiles from "../assets/osrs_chutes_and_ladders.json";
+import type { SpecialTile, SpecialTileType } from "../types";
 
-export type TileType = 'normal' | 'ladder' | 'chute'
+export type TileType = "normal" | "ladder" | "chute";
 
 export interface BoardTile {
-  tileNumber: number
-  task: string
-  cleanTask: string
-  description: string
-  type: TileType
-  target: number | null
+  tileNumber: number;
+  task?: string;
+  cleanTask?: string;
+  description?: string;
+  type?: TileType;
+  target?: number | null;
 }
 
 export const boardTiles: BoardTile[] = rawTiles.map((tile) => ({
@@ -19,23 +19,21 @@ export const boardTiles: BoardTile[] = rawTiles.map((tile) => ({
   description: tile.description,
   type: tile.type as TileType,
   target: tile.target,
-}))
+}));
 
-export const boardWidth = Math.sqrt(boardTiles.length)
-export const boardHeight = boardWidth
+export const boardWidth = Math.sqrt(boardTiles.length);
+export const boardHeight = boardWidth;
 
 function isSpecialTile(
   tile: BoardTile,
 ): tile is BoardTile & { type: SpecialTileType; target: number } {
-  return (tile.type === 'ladder' || tile.type === 'chute') && tile.target !== null
+  return (
+    (tile.type === "ladder" || tile.type === "chute") && tile.target !== null
+  );
 }
 
 export const specialTiles: Map<number, SpecialTile> = new Map(
   boardTiles
     .filter(isSpecialTile)
     .map((tile) => [tile.tileNumber, { type: tile.type, target: tile.target }]),
-)
-
-export const taskByTileNumber: Map<number, string> = new Map(
-  boardTiles.map((tile) => [tile.tileNumber, tile.cleanTask]),
-)
+);
