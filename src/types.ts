@@ -1,13 +1,3 @@
-export type Difficulty = 'light' | 'moderate' | 'heavy'
-
-export interface BoardConfig {
-  name: string
-  width: number
-  height: number
-  difficulty: Difficulty
-  players: string[]
-}
-
 export type SpecialTileType = 'chute' | 'ladder'
 
 export interface SpecialTile {
@@ -16,7 +6,8 @@ export interface SpecialTile {
 }
 
 export interface GameState {
-  config: BoardConfig
+  width: number
+  height: number
   specialTiles: Map<number, SpecialTile>
   tokenPosition: number
   lastRoll: number | null
