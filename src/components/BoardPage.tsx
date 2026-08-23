@@ -10,10 +10,12 @@ import "./BoardPage.css";
 interface BoardPageProps {
   gameState: GameState;
   onRoll: () => void;
+  onRefresh: () => void;
+  onReset: () => void;
   boardTiles: BoardTile[];
 }
 
-function BoardPage({ gameState, onRoll, boardTiles }: BoardPageProps) {
+function BoardPage({ gameState, onRoll, onRefresh, onReset, boardTiles }: BoardPageProps) {
   const { width, height, specialTiles, tokenPosition, lastRoll } = gameState;
   const total = width * height;
   const startTile = 0;
@@ -26,11 +28,11 @@ function BoardPage({ gameState, onRoll, boardTiles }: BoardPageProps) {
           <div className="board-frame">
             <div className="board-corners">
               <Tile
-                tile={{ tileNumber: goalTile }}
+                tile={{ tileNumber: goalTile, cleanTask: "Finish" }}
                 hasToken={tokenPosition === goalTile}
               />
               <Tile
-                tile={{ tileNumber: startTile }}
+                tile={{ tileNumber: startTile, cleanTask: "Start" }}
                 hasToken={tokenPosition === startTile}
               />
             </div>
@@ -70,6 +72,8 @@ function BoardPage({ gameState, onRoll, boardTiles }: BoardPageProps) {
             lastRoll={lastRoll}
             isWon={isGameWon(gameState)}
             onRoll={onRoll}
+            onRefresh={onRefresh}
+            onReset={onReset}
           />
         </div>
       </div>

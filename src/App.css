@@ -10,3 +10,11 @@
     padding: 20px 12px;
   }
 }
+
+.status-message {
+  font-size: 20px;
+}
+
+.status-message--error {
+  color: var(--color-red);
+}
