@@ -1,38 +1,89 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { GameState } from "./types";
-import { boardWidth, boardHeight, boardTiles, specialTiles } from "./lib/board";
-import { advanceToken } from "./lib/gameplay";
+import type { BoardTile } from "./lib/board";
+import { deriveBoard } from "./lib/board";
+import { fetchGameState, resetToken, rollToken } from "./lib/api";
 import BoardPage from "./components/BoardPage";
 import "./App.css";
 
-function createInitialGameState(): GameState {
-  return {
-    width: boardWidth,
-    height: boardHeight,
-    specialTiles,
-    tokenPosition: 0,
-    lastRoll: null,
-  };
-}
+type Status = "loading" | "ready" | "error";
 
 function App() {
-  const [gameState, setGameState] = useState<GameState>(createInitialGameState);
+  const [boardTiles, setBoardTiles] = useState<BoardTile[]>([]);
+  const [gameState, setGameState] = useState<GameState | null>(null);
+  const [status, setStatus] = useState<Status>("loading");
 
-  function rollDie(): number {
-    return 1 + Math.floor(Math.random() * 6);
-  }
+  useEffect(() => {
+    let cancelled = false;
 
-  const handleRoll = () => {
-    setGameState((prev) => advanceToken(prev, rollDie()));
+    fetchGameState()
+      .then(({ tiles, tokenPosition, lastRoll }) => {
+        if (cancelled) return;
+        const derived = deriveBoard(tiles);
+        setBoardTiles(derived.boardTiles);
+        setGameState({
+          width: derived.boardWidth,
+          height: derived.boardHeight,
+          specialTiles: derived.specialTiles,
+          tokenPosition,
+          lastRoll,
+        });
+        setStatus("ready");
+      })
+      .catch((err) => {
+        console.error("Failed to load game state:", err);
+        if (!cancelled) setStatus("error");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleRoll = async () => {
+    try {
+      const { tokenPosition, lastRoll } = await rollToken();
+      setGameState((prev) => prev && { ...prev, tokenPosition, lastRoll });
+    } catch (err) {
+      console.error("Failed to roll:", err);
+    }
+  };
+
+  const handleRefresh = async () => {
+    try {
+      const { tokenPosition, lastRoll } = await fetchGameState();
+      setGameState((prev) => prev && { ...prev, tokenPosition, lastRoll });
+    } catch (err) {
+      console.error("Failed to refresh game state:", err);
+    }
+  };
+
+  const handleReset = async () => {
+    try {
+      const { tokenPosition, lastRoll } = await resetToken();
+      setGameState((prev) => prev && { ...prev, tokenPosition, lastRoll });
+    } catch (err) {
+      console.error("Failed to reset game state:", err);
+    }
   };
 
   return (
     <div className="app-shell">
-      <BoardPage
-        gameState={gameState}
-        onRoll={handleRoll}
-        boardTiles={boardTiles}
-      />
+      {status === "loading" && <p className="status-message">Loading board…</p>}
+      {status === "error" && (
+        <p className="status-message status-message--error">
+          Couldn't reach the game server. Is osrs-board-server running?
+        </p>
+      )}
+      {status === "ready" && gameState && (
+        <BoardPage
+          gameState={gameState}
+          onRoll={handleRoll}
+          onRefresh={handleRefresh}
+          onReset={handleReset}
+          boardTiles={boardTiles}
+        />
+      )}
     </div>
   );
 }

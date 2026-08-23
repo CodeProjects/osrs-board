@@ -30,3 +30,19 @@
 .roll-button:hover {
   background: var(--color-yellow);
 }
+
+.refresh-button {
+  display: block;
+  margin: 10px auto 0;
+  background: var(--color-panel);
+  color: var(--color-yellow);
+  border: 2px solid var(--color-dark-brown);
+  box-shadow: var(--bevel-panel);
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 14px;
+}
+
+.refresh-button:hover {
+  background: var(--color-brown);
+}

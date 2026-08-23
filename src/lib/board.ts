@@ -1,4 +1,3 @@
-import rawTiles from "../assets/osrs_chutes_and_ladders.json";
 import type { SpecialTile, SpecialTileType } from "../types";
 
 export type TileType = "normal" | "ladder" | "chute";
@@ -12,17 +11,22 @@ export interface BoardTile {
   target?: number | null;
 }
 
-export const boardTiles: BoardTile[] = rawTiles.map((tile) => ({
-  tileNumber: tile.tile_number,
-  task: tile.task,
-  cleanTask: tile.clean_task,
-  description: tile.description,
-  type: tile.type as TileType,
-  target: tile.target,
-}));
+/** Shape of a tile as served by GET /api/game (data/board.json on the server). */
+export interface RawBoardTile {
+  tile_number: number;
+  task?: string;
+  clean_task?: string;
+  description?: string;
+  type?: TileType;
+  target?: number | null;
+}
 
-export const boardWidth = Math.sqrt(boardTiles.length);
-export const boardHeight = boardWidth;
+export interface DerivedBoard {
+  boardTiles: BoardTile[];
+  boardWidth: number;
+  boardHeight: number;
+  specialTiles: Map<number, SpecialTile>;
+}
 
 function isSpecialTile(
   tile: BoardTile,
@@ -32,8 +36,25 @@ function isSpecialTile(
   );
 }
 
-export const specialTiles: Map<number, SpecialTile> = new Map(
-  boardTiles
-    .filter(isSpecialTile)
-    .map((tile) => [tile.tileNumber, { type: tile.type, target: tile.target }]),
-);
+/** Derives the board shapes the app needs from the raw tile array fetched from the server. */
+export function deriveBoard(rawTiles: RawBoardTile[]): DerivedBoard {
+  const boardTiles: BoardTile[] = rawTiles.map((tile) => ({
+    tileNumber: tile.tile_number,
+    task: tile.task,
+    cleanTask: tile.clean_task,
+    description: tile.description,
+    type: tile.type,
+    target: tile.target,
+  }));
+
+  const boardWidth = Math.sqrt(boardTiles.length);
+  const boardHeight = boardWidth;
+
+  const specialTiles: Map<number, SpecialTile> = new Map(
+    boardTiles
+      .filter(isSpecialTile)
+      .map((tile) => [tile.tileNumber, { type: tile.type, target: tile.target }]),
+  );
+
+  return { boardTiles, boardWidth, boardHeight, specialTiles };
+}
