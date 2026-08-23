@@ -23,7 +23,17 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - name: Drop macOS-only native binding before install
+        # @rolldown/binding-darwin-arm64 is pinned as a plain (non-optional)
+        # devDependency so local dev works despite an older local Node
+        # version that makes npm skip rolldown's own platform-matched
+        # optionalDependencies (see git history for the full story). That
+        # pin is darwin/arm64-only and breaks `npm ci` on this Linux
+        # runner, so strip it before installing here; rolldown's own
+        # optionalDependencies then resolve the correct linux-x64 binding
+        # on their own. Local package.json/package-lock.json are untouched.
+        run: npm pkg delete "devDependencies.@rolldown/binding-darwin-arm64"
+      - run: npm install
       - run: npm run build
         env:
           # Set this in Settings > Secrets and variables > Actions > Variables.
