@@ -3,6 +3,7 @@ import "./DiceRoller.css";
 interface DiceRollerProps {
   lastRoll: number | null;
   isWon: boolean;
+  isAnimating?: boolean;
   onRoll: () => void;
   onRefresh: () => void;
   onReset: () => void;
@@ -11,6 +12,7 @@ interface DiceRollerProps {
 function DiceRoller({
   lastRoll,
   isWon,
+  isAnimating,
   onRoll,
   onRefresh,
   onReset,
@@ -29,10 +31,20 @@ function DiceRoller({
   return (
     <div className="dice-roller">
       {lastRoll !== null && <p className="last-roll">Rolled a {lastRoll}</p>}
-      <button type="button" className="roll-button" onClick={onRoll}>
+      <button
+        type="button"
+        className="roll-button"
+        onClick={onRoll}
+        disabled={isAnimating}
+      >
         {lastRoll ? "Complete Goal" : "Start Game"}
       </button>
-      <button type="button" className="refresh-button" onClick={onRefresh}>
+      <button
+        type="button"
+        className="refresh-button"
+        onClick={onRefresh}
+        disabled={isAnimating}
+      >
         Refresh
       </button>
     </div>

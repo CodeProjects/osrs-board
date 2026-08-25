@@ -74,15 +74,6 @@
   transform: translate(50%, -50%);
 }
 
-.token {
-  position: absolute;
-  z-index: 2;
-  width: 65%;
-  height: 65%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.7));
-}
-
 @media (max-width: 640px) {
   .tile {
     font-size: 13px;

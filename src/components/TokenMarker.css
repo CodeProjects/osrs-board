@@ -1,0 +1,18 @@
+.token-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--tile-size, 96px);
+  height: var(--tile-size, 96px);
+  z-index: 3;
+  box-sizing: border-box;
+  object-fit: contain;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.7));
+  transition-property: transform, width, height;
+  transition-timing-function: ease-in-out;
+  pointer-events: none;
+}
+
+.token-marker--snap {
+  transition: none;
+}

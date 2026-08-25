@@ -31,6 +31,12 @@
   background: var(--color-yellow);
 }
 
+.roll-button:disabled,
+.refresh-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .refresh-button {
   display: block;
   margin: 10px auto 0;
