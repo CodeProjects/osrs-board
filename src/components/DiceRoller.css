@@ -52,3 +52,9 @@
 .refresh-button:hover {
   background: var(--color-brown);
 }
+
+@media (max-width: 640px) {
+  .roll-button {
+    display: none;
+  }
+}
