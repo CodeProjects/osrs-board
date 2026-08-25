@@ -1,20 +1,20 @@
 import type { BoardTile } from "../lib/board";
 import { getTurnArrow } from "../lib/generateBoard";
-import helmetIcon from "../assets/helmet icon.png";
 import "./Tile.css";
 
 interface TileProps {
   tile: BoardTile;
-  hasToken?: boolean;
   row?: number;
   col?: number;
   width?: number;
   totalTiles?: number;
+  /** Registers this tile's DOM node so TokenMarker can align to it during animation. */
+  registerRef?: (tileNumber: number, el: HTMLDivElement | null) => void;
 }
 
 const ARROW_GLYPH = { up: "↑", left: "←", right: "→" };
 
-function Tile({ tile, hasToken, row, col, width, totalTiles }: TileProps) {
+function Tile({ tile, row, col, width, totalTiles, registerRef }: TileProps) {
   const tileType = tile.type;
   const isSpecial = tileType === "ladder" || tileType === "chute";
   const specialClass = isSpecial ? `tile--${tileType}` : "";
@@ -31,7 +31,11 @@ function Tile({ tile, hasToken, row, col, width, totalTiles }: TileProps) {
     : undefined;
 
   return (
-    <div className={`tile ${shadeClass} ${specialClass}`} style={gridStyle}>
+    <div
+      className={`tile ${shadeClass} ${specialClass}`}
+      style={gridStyle}
+      ref={(el) => registerRef?.(tile.tileNumber, el)}
+    >
       {displayText !== undefined && (
         <span className="tile-label">{displayText}</span>
       )}
@@ -40,7 +44,6 @@ function Tile({ tile, hasToken, row, col, width, totalTiles }: TileProps) {
           {ARROW_GLYPH[turnArrow]}
         </span>
       )}
-      {hasToken && <img className="token" src={helmetIcon} alt="Team token" />}
     </div>
   );
 }

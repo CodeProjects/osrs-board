@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { GameState } from "./types";
 import type { BoardTile } from "./lib/board";
 import { deriveBoard } from "./lib/board";
+import type { PathStep } from "./lib/movePath";
+import { buildMovePath } from "./lib/movePath";
 import { fetchGameState, resetToken, rollToken } from "./lib/api";
 import BoardPage from "./components/BoardPage";
 import "./App.css";
@@ -12,6 +14,8 @@ function App() {
   const [boardTiles, setBoardTiles] = useState<BoardTile[]>([]);
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [status, setStatus] = useState<Status>("loading");
+  const [movePath, setMovePath] = useState<PathStep[] | null>(null);
+  const [moveId, setMoveId] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -41,17 +45,34 @@ function App() {
   }, []);
 
   const handleRoll = async () => {
+    if (!gameState || movePath) return;
+    const from = gameState.tokenPosition;
     try {
       const { tokenPosition, lastRoll } = await rollToken();
+      if (lastRoll !== null) {
+        const goal = gameState.width * gameState.height + 1;
+        setMovePath(
+          buildMovePath({
+            from,
+            roll: lastRoll,
+            specialTiles: gameState.specialTiles,
+            goal,
+          }),
+        );
+        setMoveId((id) => id + 1);
+      }
       setGameState((prev) => prev && { ...prev, tokenPosition, lastRoll });
     } catch (err) {
       console.error("Failed to roll:", err);
     }
   };
 
+  const handleTokenSettle = () => setMovePath(null);
+
   const handleRefresh = async () => {
     try {
       const { tokenPosition, lastRoll } = await fetchGameState();
+      setMovePath(null);
       setGameState((prev) => prev && { ...prev, tokenPosition, lastRoll });
     } catch (err) {
       console.error("Failed to refresh game state:", err);
@@ -61,6 +82,7 @@ function App() {
   const handleReset = async () => {
     try {
       const { tokenPosition, lastRoll } = await resetToken();
+      setMovePath(null);
       setGameState((prev) => prev && { ...prev, tokenPosition, lastRoll });
     } catch (err) {
       console.error("Failed to reset game state:", err);
@@ -78,9 +100,12 @@ function App() {
       {status === "ready" && gameState && (
         <BoardPage
           gameState={gameState}
+          movePath={movePath}
+          moveId={moveId}
           onRoll={handleRoll}
           onRefresh={handleRefresh}
           onReset={handleReset}
+          onTokenSettle={handleTokenSettle}
           boardTiles={boardTiles}
         />
       )}
