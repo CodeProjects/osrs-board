@@ -1,11 +1,13 @@
 .board-page {
   width: 100%;
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 .board-row {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 24px;
   align-items: flex-start;
 }
@@ -15,8 +17,7 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  flex: 1;
-  min-width: 0;
+  flex: 0 1 auto;
 }
 
 .board-column h1 {

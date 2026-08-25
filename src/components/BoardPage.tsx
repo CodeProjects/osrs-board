@@ -5,6 +5,7 @@ import { isGameWon } from "../lib/gameplay";
 import Tile from "./Tile";
 import BoardLines from "./BoardLines";
 import DiceRoller from "./DiceRoller";
+import StatsPanel from "./StatsPanel";
 import "./BoardPage.css";
 
 interface BoardPageProps {
@@ -15,11 +16,21 @@ interface BoardPageProps {
   boardTiles: BoardTile[];
 }
 
-function BoardPage({ gameState, onRoll, onRefresh, onReset, boardTiles }: BoardPageProps) {
+function BoardPage({
+  gameState,
+  onRoll,
+  onRefresh,
+  onReset,
+  boardTiles,
+}: BoardPageProps) {
   const { width, height, specialTiles, tokenPosition, lastRoll } = gameState;
   const total = width * height;
   const startTile = 0;
   const goalTile = total + 1;
+  const currentTile: BoardTile | undefined =
+    tokenPosition === startTile ? { tileNumber: startTile, cleanTask: "Start" }
+    : tokenPosition === goalTile ? { tileNumber: goalTile, cleanTask: "Finish" }
+    : boardTiles.find((tile) => tile.tileNumber === tokenPosition);
   return (
     <div className="board-page">
       <div className="board-row">
@@ -69,6 +80,7 @@ function BoardPage({ gameState, onRoll, onRefresh, onReset, boardTiles }: BoardP
                 height={height}
               />
             </div>
+            <StatsPanel currentTile={currentTile} lastRoll={lastRoll} />
           </div>
           <DiceRoller
             lastRoll={lastRoll}
