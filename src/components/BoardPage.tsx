@@ -57,6 +57,8 @@ function BoardPage({ gameState, onRoll, onRefresh, onReset, boardTiles }: BoardP
                       hasToken={tile.tileNumber === tokenPosition}
                       row={row}
                       col={col}
+                      width={width}
+                      totalTiles={total}
                     />
                   );
                 })}

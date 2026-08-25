@@ -45,6 +45,35 @@
   box-shadow: 0 0 4px var(--color-red);
 }
 
+.tile-arrow {
+  position: absolute;
+  z-index: 2;
+  font-size: 50px;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--color-brown);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.tile-arrow--up {
+  top: -3px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tile-arrow--left {
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.tile-arrow--right {
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
 .token {
   position: absolute;
   z-index: 2;
@@ -61,5 +90,9 @@
 
   .tile-label {
     font-size: 8px;
+  }
+
+  .tile-arrow {
+    font-size: 14px;
   }
 }
