@@ -44,23 +44,31 @@ function App() {
     };
   }, []);
 
+  const startMove = (
+    from: number,
+    tokenPosition: number,
+    lastRoll: number | null,
+  ) => {
+    if (!gameState || lastRoll === null || tokenPosition === from) return false;
+    const goal = gameState.width * gameState.height + 1;
+    const path = buildMovePath({
+      from,
+      roll: lastRoll,
+      specialTiles: gameState.specialTiles,
+      goal,
+    });
+    if (path[path.length - 1].tileNumber !== tokenPosition) return false;
+    setMovePath(path);
+    setMoveId((id) => id + 1);
+    return true;
+  };
+
   const handleRoll = async () => {
     if (!gameState || movePath) return;
     const from = gameState.tokenPosition;
     try {
       const { tokenPosition, lastRoll } = await rollToken();
-      if (lastRoll !== null) {
-        const goal = gameState.width * gameState.height + 1;
-        setMovePath(
-          buildMovePath({
-            from,
-            roll: lastRoll,
-            specialTiles: gameState.specialTiles,
-            goal,
-          }),
-        );
-        setMoveId((id) => id + 1);
-      }
+      startMove(from, tokenPosition, lastRoll);
       setGameState((prev) => prev && { ...prev, tokenPosition, lastRoll });
     } catch (err) {
       console.error("Failed to roll:", err);
@@ -70,9 +78,11 @@ function App() {
   const handleTokenSettle = () => setMovePath(null);
 
   const handleRefresh = async () => {
+    if (!gameState || movePath) return;
+    const from = gameState.tokenPosition;
     try {
       const { tokenPosition, lastRoll } = await fetchGameState();
-      setMovePath(null);
+      if (!startMove(from, tokenPosition, lastRoll)) setMovePath(null);
       setGameState((prev) => prev && { ...prev, tokenPosition, lastRoll });
     } catch (err) {
       console.error("Failed to refresh game state:", err);
